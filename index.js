@@ -133,9 +133,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-
-const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 console.log("khdouj");
+const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
+
 app.use(cors({  
    
   origin: function (origin, callback) {
