@@ -77,7 +77,7 @@ dotenv.config();
 
 const app = express();
 
-const allowedOrigins = ['https://tafukut-lunch.vercel.app/api/waitlist','https://tafukut-lunch.vercel.app/api/test'];
+const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
