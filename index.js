@@ -106,6 +106,8 @@ const waitlistSchema = new mongoose.Schema({
 
 const Waitlist = mongoose.model('Waitlist', waitlistSchema);
 
+app.options('*', cors()); 
+
 app.post('/api/waitlist', async (req, res) => {
   const { name, email } = req.body;
   const newEntry = new Waitlist({ name, email });
