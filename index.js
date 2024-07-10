@@ -156,7 +156,7 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log('Failed to connect to MongoDB', err));
 
@@ -174,11 +174,16 @@ app.get('/api/test', (req, res) => {
 });
 
 app.post('/api/waitlist', async (req, res) => {
-  const { name, email } = req.body;
-  console.log('Received waitlist request:', req.body);
-  const newEntry = new Waitlist({ name, email });
-  await newEntry.save();
-  res.json({ text: `Thank you, ${name}! You have been added to the waitlist with the email: ${email}` });
+  try {
+    const { name, email } = req.body;
+    console.log('Received waitlist request:', req.body);
+    const newEntry = new Waitlist({ name, email });
+    await newEntry.save();
+    res.json({ text: `Thank you, ${name}! You have been added to the waitlist with the email: ${email}` });
+  } catch (error) {
+    console.error('Error in POST /api/waitlist:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // Temporary GET route to fetch all entries from the waitlist
@@ -187,6 +192,7 @@ app.get('/api/waitlist', async (req, res) => {
     const waitlistEntries = await Waitlist.find();
     res.json(waitlistEntries);
   } catch (error) {
+    console.error('Error in GET /api/waitlist:', error);
     res.status(500).json({ error: 'Failed to fetch waitlist entries' });
   }
 });
