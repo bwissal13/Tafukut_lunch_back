@@ -34,13 +34,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
-// Load environment variables from .env file
 dotenv.config();
 
 const app = express();
 
 app.use(cors({
-  origin: 'https://tafukut-lunch-back.vercel.app/',
+  origin: 'https://tafukut-lunch.vercel.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
