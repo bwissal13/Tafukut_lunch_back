@@ -133,16 +133,16 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-console.log("Server initialization started"); // Added log
+console.log("Server initialization started");
 const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
-    console.log(`Origin: ${origin}`); // Added log
+    console.log(`Origin: ${origin}`);
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified origin.';
-      console.log(msg); // Added log
+      console.log(msg);
       return callback(new Error(msg), false);
     }
     return callback(null, true);
@@ -157,8 +157,8 @@ app.use(cors({
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB')) // Added log
-  .catch(err => console.log('Failed to connect to MongoDB', err)); // Added log
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.log('Failed to connect to MongoDB', err));
 
 const waitlistSchema = new mongoose.Schema({
   name: String,
@@ -175,10 +175,20 @@ app.get('/api/test', (req, res) => {
 
 app.post('/api/waitlist', async (req, res) => {
   const { name, email } = req.body;
-  console.log('Received waitlist request:', req.body); // Added log
+  console.log('Received waitlist request:', req.body);
   const newEntry = new Waitlist({ name, email });
   await newEntry.save();
   res.json({ text: `Thank you, ${name}! You have been added to the waitlist with the email: ${email}` });
+});
+
+// Temporary GET route to fetch all entries from the waitlist
+app.get('/api/waitlist', async (req, res) => {
+  try {
+    const waitlistEntries = await Waitlist.find();
+    res.json(waitlistEntries);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch waitlist entries' });
+  }
 });
 
 const port = process.env.PORT || 5000;
