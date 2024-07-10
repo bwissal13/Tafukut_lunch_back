@@ -136,10 +136,8 @@ const app = express();
 console.log("khdouj");
 const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
-app.use(cors({  
-   
+app.use(cors({
   origin: function (origin, callback) {
-
     console.log(`Origin: ${origin}`);
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
@@ -156,7 +154,6 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));
 
-// app.use(cors()); 
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
