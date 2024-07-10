@@ -9,11 +9,16 @@
     "routes": [
       {
         "src": "/api/(.*)",
-        "dest": "index.js"
+        "dest": "index.js",
+        "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization"
+      }
       }
     ],
     "env": {
-      "MONGODB_URI": "mongodb://localhost:27017/waitlistDB",
+      "MONGODB_URI": "mongodb+srv://bwissal:Sno7i1701@lunch.6vmw7nm.mongodb.net/",
       "PORT": "5000"
     }
   }
