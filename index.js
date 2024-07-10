@@ -153,7 +153,7 @@ const app = express();
 //   preflightContinue: false,
 //   optionsSuccessStatus: 204
 // }));
-const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
+const allowedOrigins = ['https://tafukut-lunch.vercel.app/api/waitlist']; 
 
 const corsOptions = {
   origin: function (origin, callback) {
