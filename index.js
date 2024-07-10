@@ -133,16 +133,16 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-console.log("khdouj");
+console.log("Server initialization started"); // Added log
 const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
-    console.log(`Origin: ${origin}`);
+    console.log(`Origin: ${origin}`); // Added log
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified origin.';
-      console.log(msg);
+      console.log(msg); // Added log
       return callback(new Error(msg), false);
     }
     return callback(null, true);
@@ -156,7 +156,9 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB')) // Added log
+  .catch(err => console.log('Failed to connect to MongoDB', err)); // Added log
 
 const waitlistSchema = new mongoose.Schema({
   name: String,
@@ -173,6 +175,7 @@ app.get('/api/test', (req, res) => {
 
 app.post('/api/waitlist', async (req, res) => {
   const { name, email } = req.body;
+  console.log('Received waitlist request:', req.body); // Added log
   const newEntry = new Waitlist({ name, email });
   await newEntry.save();
   res.json({ text: `Thank you, ${name}! You have been added to the waitlist with the email: ${email}` });
