@@ -135,10 +135,11 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
-
-app.use(cors({
+console.log("khdouj");
+app.use(cors({  
+   
   origin: function (origin, callback) {
-   console.log("khdouj");
+
     console.log(`Origin: ${origin}`);
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
