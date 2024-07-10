@@ -81,9 +81,11 @@ const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
+    console.log(`Origin: ${origin}`);
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+      const msg = 'khdouj';
+      console.log(msg);
       return callback(new Error(msg), false);
     }
     return callback(null, true);
@@ -94,7 +96,6 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
-
 app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
