@@ -170,7 +170,7 @@ const handleSubmit = async (e) => {
 };
 
 
-testBackend();
+
 useEffect(() => {
   const checkBackend = async () => {
     try {
@@ -221,7 +221,7 @@ app.get('/api/waitlist', (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.json({ message: 'Hello, world!' });
 });
 
