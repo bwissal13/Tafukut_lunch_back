@@ -19,14 +19,16 @@ const waitlistSchema = new mongoose.Schema({
 const Waitlist = mongoose.model('Waitlist', waitlistSchema);
 
 app.use(express.json());
-app.use(cors({
-  origin: 'https://tafukut-lunch.vercel.app', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  optionsSuccessStatus: 204,
-}));
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); 
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT"); 
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization"); 
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end(); 
+  }
+  next();
+});
 app.options('*', cors());
 
 app.get('/api/test', (req, res) => {
