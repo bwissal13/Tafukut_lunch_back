@@ -156,6 +156,7 @@ console.log("Server initialization started");
 // }));
 const corsOptions = {
   origin: 'https://tafukut-lunch.vercel.app',
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
