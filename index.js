@@ -6,29 +6,39 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
+// Middleware to parse JSON
+app.use(express.json());
 
-const app = express();
+// CORS Middleware
+app.use(function (req, res, next) {
+  // Enabling CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
+  next();
+});
+// const app = express();
 
-const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
+// const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    console.log(`Origin: ${origin}`);
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'khdouj';
-      console.log(msg);
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
-}));
-app.use(bodyParser.json());
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     console.log(`Origin: ${origin}`);
+//     if (!origin) return callback(null, true);
+//     if (allowedOrigins.indexOf(origin) === -1) {
+//       const msg = 'khdouj';
+//       console.log(msg);
+//       return callback(new Error(msg), false);
+//     }
+//     return callback(null, true);
+//   },
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true,
+//   preflightContinue: false,
+//   optionsSuccessStatus: 204
+// }));
+// app.use(bodyParser.json());
 
 mongoose.connect(process.env.MONGODB_URI);
 
