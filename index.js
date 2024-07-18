@@ -7,6 +7,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+app.use(express.json());
+app.use(cors({
+  origin: 'https://tafukut-lunch.vercel.app', 
+  methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
+}));
+
 mongoose.connect(process.env.MONGODB_URI, {
 }).then(() => {
   console.log('Connected to MongoDB');
@@ -21,12 +28,6 @@ const waitlistSchema = new mongoose.Schema({
 
 const Waitlist = mongoose.model('Waitlist', waitlistSchema);
 
-app.use(express.json());
-app.use(cors({
-  origin: 'https://tafukut-lunch.vercel.app', 
-  methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
-}));
 
 
 app.get('/api/test', (req, res) => {
