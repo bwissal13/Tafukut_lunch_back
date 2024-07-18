@@ -46,10 +46,6 @@ app.post('/api/waitlist', async (req, res) => {
   }
 });
 
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
 app.get('/api/waitlist', async (req, res) => {
   try {
     const users = await Waitlist.find();
@@ -59,6 +55,9 @@ app.get('/api/waitlist', async (req, res) => {
   }
 });
 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
