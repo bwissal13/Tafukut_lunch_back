@@ -134,6 +134,7 @@ dotenv.config();
 
 const app = express();
 console.log("Server initialization started");
+
 const allowedOrigins = ['https://tafukut-lunch.vercel.app'];
 
 app.use(cors({
@@ -153,36 +154,6 @@ app.use(cors({
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
-
-const axios = require('axios');
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const name = e.target.name.value;
-  const email = e.target.email.value;
-
-  try {
-    const response = await axios.post('https://tafukut-lunch-back.vercel.app/api/waitlist', { name, email });
-    setMessage(response.data.text);
-  } catch (error) {
-    setMessage('There was an error submitting your request. Please try again.');
-  }
-};
-
-
-
-useEffect(() => {
-  const checkBackend = async () => {
-    try {
-      const response = await axios.get('https://tafukut-lunch-back.vercel.app/api/test');
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error:', error.response ? error.response.data : error.message);
-    }
-  };
-
-  checkBackend();
-}, []);
 
 app.use(bodyParser.json());
 
@@ -220,15 +191,9 @@ app.get('/api/waitlist', (req, res) => {
   res.json({ message: 'This is a test response' });
 });
 
-
 app.get('/api/', (req, res) => {
   res.json({ message: 'Hello, world!' });
 });
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 
 const port = process.env.PORT || 5000;
 
