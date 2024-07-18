@@ -6,11 +6,7 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-  origin: 'https://tafukut-lunch.vercel.app', 
-  methods: ['GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'],
-  allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization']
-}));
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 
@@ -59,6 +55,3 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
