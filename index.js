@@ -42,14 +42,14 @@ app.post('/api/waitlist', async (req, res) => {
   }
 });
 
-app.get('/api/waitlist', async (req, res) => {
-  try {
-    const users = await Waitlist.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching the waitlist' });
-  }
-});
+// app.get('/api/waitlist', async (req, res) => {
+//   try {
+//     const users = await Waitlist.find();
+//     res.json(users);
+//   } catch (error) {
+//     res.status(500).json({ error: 'An error occurred while fetching the waitlist' });
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
